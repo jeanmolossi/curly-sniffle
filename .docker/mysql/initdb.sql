@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS todos (
   todo_id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
   description VARCHAR(255) NULL,
-  board_index INT NOT NULL,
-  board_ref VARCHAR(255) NOT NULL,
+  board_index INT NULL,
+  board_ref VARCHAR(255) NULL,
   PRIMARY KEY (todo_id)
 );
 

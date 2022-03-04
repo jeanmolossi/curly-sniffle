@@ -2,4 +2,15 @@
 GET http://localhost:3000/api
 
 ###
-GET http://localhost:3000/api/1
+GET http://localhost:3000/api/2
+
+###
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+	"title": "TODO Title",
+	"description": "TODO Description",
+	"boardIndex": 1,
+	"boardRef": "doingColumn"
+}
