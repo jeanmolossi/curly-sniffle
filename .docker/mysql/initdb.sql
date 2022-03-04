@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS categories (
 	PRIMARY KEY (category_id)
 );
 
-CREATE TABLE IF NOT EXISTS categoryTodo (
+CREATE TABLE IF NOT EXISTS categories_todos (
 	category_id INT NOT NULL,
 	todo_id INT NOT NULL,
 	PRIMARY KEY (category_id, todo_id),

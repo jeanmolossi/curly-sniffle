@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+} from "typeorm";
 import { Todo } from "./todo";
 
 @Entity("comments")
@@ -15,12 +22,13 @@ export class Comment {
 	@Column({ name: "comment" })
 	comment: string;
 
-	@Column({ name: "created_at" })
+	@CreateDateColumn({ name: "created_at" })
 	createdAt: string;
 
 	@Column({ name: "todo_id" })
 	todoId: number;
 
 	@ManyToOne(() => Todo, (todo) => todo.comments)
+	@JoinColumn({ name: "todo_id" })
 	todo: Todo;
 }

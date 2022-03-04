@@ -1,0 +1,12 @@
+POST http://localhost:3000/api/todo/2/comment
+Content-Type: application/json
+
+{
+	"comment": "This is a comment",
+	"userName": "Janet Johnson",
+	"userPhoto": "https://randomuser.me/api/portraits/women/34.jpg"
+}
+
+###
+DELETE http://localhost:3000/api/todo/2/comment/1
+Accept: application/json

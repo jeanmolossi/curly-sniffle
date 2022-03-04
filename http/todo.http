@@ -1,16 +1,35 @@
 ###
-GET http://localhost:3000/api
+GET http://localhost:3000/api/todo
+Accept: application/json
 
 ###
-GET http://localhost:3000/api/2
+GET http://localhost:3000/api/todo/2
+Accept: application/json
 
 ###
-POST http://localhost:3000/api
+POST http://localhost:3000/api/todo
 Content-Type: application/json
 
 {
 	"title": "TODO Title",
 	"description": "TODO Description",
-	"boardIndex": 1,
-	"boardRef": "doingColumn"
+	"boardIndex": 3,
+	"boardRef": "doingColumn",
+	"categories": [
+		{ "categoryId": 1 },
+		{ "categoryId": 2 }
+	]
 }
+
+###
+PUT http://localhost:3000/api/todo/1
+Content-Type: application/json
+
+{
+	"boardIndex": 3,
+	"boardRef": "todoColumn"
+}
+
+###
+DELETE http://localhost:3000/api/todo/1
+Accept: application/json

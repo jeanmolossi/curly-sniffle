@@ -1,0 +1,28 @@
+GET http://localhost:3000/api/categories
+Accept: application/json
+
+###
+GET http://localhost:3000/api/categories/1
+Accept: application/json
+
+###
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+	"label": "This is a comment",
+	"type": "neutral"
+}
+
+###
+PUT http://localhost:3000/api/categories/1
+Content-Type: application/json
+
+{
+	"label": "This is a comment edited",
+	"type": "success"
+}
+
+###
+DELETE http://localhost:3000/api/categories/3
+Accept: application/json
