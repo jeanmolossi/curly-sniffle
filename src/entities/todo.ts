@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from "typeorm";
+import { Category } from "./categories";
+import { Comment } from "./comments";
 
 @Entity("todos")
 export class Todo {
@@ -16,4 +25,11 @@ export class Todo {
 
 	@Column({ name: "board_ref" })
 	boardRef: string;
+
+	@ManyToMany(() => Category)
+	@JoinTable()
+	categories: Category[];
+
+	@OneToMany(() => Comment, (comment) => comment.todo)
+	comments: Comment[];
 }
