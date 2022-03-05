@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3000/api/todo
+GET http://localhost:3001/api/todo
 Accept: application/json
 
 ###
@@ -31,5 +31,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/todo/1
+DELETE http://localhost:3001/api/todo/4
 Accept: application/json

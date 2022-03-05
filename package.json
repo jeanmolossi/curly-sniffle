@@ -9,12 +9,14 @@
 		"typeorm": "ts-node --transpile-only ./node_modules/typeorm/cli.js"
 	},
 	"dependencies": {
+		"cors": "^2.8.5",
 		"express": "^4.17.3",
 		"mysql": "^2.18.1",
 		"reflect-metadata": "^0.1.13",
 		"typeorm": "^0.2.44"
 	},
 	"devDependencies": {
+		"@types/cors": "^2.8.12",
 		"@types/express": "^4.17.13",
 		"@types/node": "^17.0.21",
 		"nodemon": "^2.0.15",

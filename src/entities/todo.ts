@@ -26,13 +26,21 @@ export class Todo {
 	@Column({ name: "board_ref" })
 	boardRef: string;
 
-	@ManyToMany(() => Category, { eager: true })
+	@ManyToMany(() => Category, {
+		eager: true,
+		onDelete: "CASCADE",
+		onUpdate: "CASCADE",
+	})
 	@JoinTable({
 		joinColumn: { name: "todo_id" },
 		inverseJoinColumn: { name: "category_id" },
 	})
 	categories: Category[];
 
-	@OneToMany<Comment>("comments", (comment) => comment.todo, { eager: true })
+	@OneToMany<Comment>("comments", (comment) => comment.todo, {
+		eager: true,
+		onDelete: "CASCADE",
+		onUpdate: "CASCADE",
+	})
 	comments: Comment[];
 }

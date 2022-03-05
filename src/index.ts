@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { createConnection } from "typeorm";
 import { CategoriesController } from "./controllers/categories";
 import { CommentsController } from "./controllers/comments";
@@ -7,6 +8,7 @@ import { TodoController } from "./controllers/todo";
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 createConnection();
 
@@ -42,4 +44,6 @@ router.use("/categories", categoryRouter);
 
 app.use("/api", router);
 
-app.listen(3000, () => console.log(`Listening on port 3000`));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
