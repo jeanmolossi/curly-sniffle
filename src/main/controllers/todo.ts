@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import { getManager, getRepository } from "typeorm";
-import { Todo } from "@/entities/todo";
+import { CreateTodo } from "@/domain";
+import { Todo } from "@/data/todo";
 
 export class TodoController {
+	constructor(private readonly createTodoService: CreateTodo) {}
+
 	async get(request: Request, response: Response): Promise<Response> {
 		const id = request.params?.id;
 
@@ -18,25 +21,9 @@ export class TodoController {
 	async post(request: Request, response: Response): Promise<Response> {
 		const { body } = request;
 
-		const todoRepository = getRepository(Todo);
+		const todo = await this.createTodoService.run(body);
 
-		const todos = await todoRepository.find({
-			where: {
-				boardIndex: body.boardIndex,
-				boardRef: body.boardRef,
-			},
-		});
-
-		if (todos.length > 0) {
-			return response.status(403).json({
-				error: "Todo already exists",
-			});
-		}
-
-		const todo = todoRepository.create(body);
-
-		const savedTodo = await todoRepository.save(todo);
-		return response.json(savedTodo);
+		return response.json(todo);
 	}
 
 	async put(request: Request, response: Response): Promise<Response> {

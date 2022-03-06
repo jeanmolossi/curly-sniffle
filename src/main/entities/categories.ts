@@ -1,11 +1,5 @@
-import {
-	Column,
-	Entity,
-	JoinTable,
-	ManyToMany,
-	PrimaryGeneratedColumn,
-} from "typeorm";
-import { Todo } from "./todo";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Todo } from "@/data/todo";
 
 @Entity("categories")
 export class Category {

@@ -1,4 +1,4 @@
-import { Comment } from "@/entities/comments";
+import { Comment } from "@/main/entities/comments";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 

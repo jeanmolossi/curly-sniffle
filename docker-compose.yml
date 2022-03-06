@@ -22,9 +22,9 @@ services:
   todo_api:
     build: .
     command:
-      - npm
+      - yarn
       - run
-      - start
+      - start:dev
     restart: always
     tty: true
     ports:

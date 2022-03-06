@@ -1,4 +1,4 @@
-import { Category } from "@/entities/categories";
+import { Category } from "@/main/entities/categories";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 

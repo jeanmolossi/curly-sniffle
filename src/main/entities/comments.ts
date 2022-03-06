@@ -6,7 +6,7 @@ import {
 	ManyToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Todo } from "./todo";
+import { Todo } from "@/data/todo";
 
 @Entity("comments")
 export class Comment {

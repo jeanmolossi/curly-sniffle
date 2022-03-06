@@ -6,8 +6,8 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Category } from "./categories";
-import { Comment } from "./comments";
+import { Category } from "@/main/entities/categories";
+import { Comment } from "@/main/entities/comments";
 
 @Entity("todos")
 export class Todo {
@@ -19,6 +19,9 @@ export class Todo {
 
 	@Column({ name: "description" })
 	description: string;
+
+	@Column({ name: "author" })
+	author: string;
 
 	@Column({ name: "board_index" })
 	boardIndex: number;
