@@ -3,7 +3,7 @@ GET http://localhost:3001/api/todo
 Accept: application/json
 
 ###
-GET http://localhost:3001/api/todo/15
+GET http://localhost:3001/api/todo/1
 Accept: application/json
 
 ###
@@ -11,26 +11,22 @@ POST http://localhost:3001/api/todo
 Content-Type: application/json
 
 {
-	"title": "TODO Title 5",
+	"title": "TODO Title 1",
 	"description": "TODO Description must be a long description. At least 20 caracters long",
 	"author": "John Doe",
-	"boardIndex": 5,
-	"boardRef": "doingColumn",
-	"categories": [
-		{ "categoryId": 1 },
-		{ "categoryId": 2 }
-	]
-}
-
-###
-PUT http://localhost:3001/api/todo/1
-Content-Type: application/json
-
-{
-	"boardIndex": 3,
+	"boardIndex": 0,
 	"boardRef": "todoColumn"
 }
 
 ###
-DELETE http://localhost:3001/api/todo/15
+PUT http://localhost:3001/api/todo/2
+Content-Type: application/json
+
+{
+	"boardIndex": 1,
+	"boardRef": "todoColumn"
+}
+
+###
+DELETE http://localhost:3001/api/todo/2
 Accept: application/json

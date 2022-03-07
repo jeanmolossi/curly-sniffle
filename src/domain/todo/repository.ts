@@ -8,4 +8,5 @@ export interface TodoRepository {
 	findTodos(conditions: Partial<TodoEntity>): Promise<TodoEntity[]>;
 	createTodo(todo: TodoEntity): Promise<TodoEntity>;
 	updateTodo(todoId: number, callback: UpdateCallback): Promise<TodoEntity>;
+	deleteTodo(todoId: number): Promise<void>;
 }

@@ -1,6 +1,6 @@
-import { Comment } from "@/main/entities/comments";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Comment } from "@/data/comments";
 
 export class CommentsController {
 	async post(request: Request, response: Response): Promise<Response> {

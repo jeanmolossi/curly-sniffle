@@ -1,6 +1,6 @@
-import { Category } from "@/main/entities/categories";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { Category } from "@/data/categories";
 
 export class CategoriesController {
 	async get(request: Request, response: Response): Promise<Response> {

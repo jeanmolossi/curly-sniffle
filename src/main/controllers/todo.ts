@@ -1,23 +1,45 @@
 import { Request, Response } from "express";
-import { getManager, getRepository } from "typeorm";
-import { CreateTodo } from "@/domain";
-import { Todo } from "@/data/todo";
+import { CreateTodo, DeleteTodo, GetTodo, GetTodos, MoveTodo } from "@/domain";
+import { Controller, Delete, Get, Post, Put } from "../decorators/controller";
 
+@Controller("/todo")
 export class TodoController {
-	constructor(private readonly createTodoService: CreateTodo) {}
+	constructor(
+		private readonly createTodoService: CreateTodo,
+		private readonly getTodoService: GetTodo,
+		private readonly getTodosService: GetTodos,
+		private readonly moveTodoService: MoveTodo,
+		private readonly deleteTodoService: DeleteTodo
+	) {}
 
+	@Get("/:id")
 	async get(request: Request, response: Response): Promise<Response> {
 		const id = request.params?.id;
 
-		if (id) {
-			const todo = await this.getTodo(+id);
-			return response.json(todo);
+		if (!id) {
+			return response.status(400).json({
+				error: "Missing id param",
+			});
 		}
 
-		const todos = await this.getTodos();
+		const todoId: number = +id;
+		if (isNaN(todoId)) {
+			return response.status(400).json({
+				error: "Invalid id param",
+			});
+		}
+
+		const todo = await this.getTodoService.run(todoId);
+		return response.json(todo);
+	}
+
+	@Get("/")
+	async show(_: Request, response: Response) {
+		const todos = await this.getTodosService.run();
 		return response.json(todos);
 	}
 
+	@Post("/")
 	async post(request: Request, response: Response): Promise<Response> {
 		const { body } = request;
 
@@ -26,6 +48,7 @@ export class TodoController {
 		return response.json(todo);
 	}
 
+	@Put("/:id")
 	async put(request: Request, response: Response): Promise<Response> {
 		const { body, params } = request;
 
@@ -35,25 +58,12 @@ export class TodoController {
 			});
 		}
 
-		const todoRepository = getRepository(Todo);
-		const todo = await todoRepository.findOne(+params.id);
+		const todo = await this.moveTodoService.run(+params.id, body);
 
-		if (!todo) {
-			return response.status(404).json({
-				error: "Todo not found",
-			});
-		}
-
-		const newTodoData = {
-			...todo,
-			...body,
-		};
-
-		const savedTodo = await todoRepository.save(newTodoData);
-
-		return response.json(savedTodo);
+		return response.json(todo);
 	}
 
+	@Delete("/:id")
 	async delete(request: Request, response: Response): Promise<Response> {
 		const { params } = request;
 
@@ -63,28 +73,8 @@ export class TodoController {
 			});
 		}
 
-		const todoRepository = getRepository(Todo);
-		const todo = await todoRepository.findOne(+params.id);
-
-		if (!todo) {
-			return response.status(404).json({
-				error: "Todo not found",
-			});
-		}
-
-		await todoRepository.remove(todo);
+		await this.deleteTodoService.run(+params.id);
 
 		return response.status(204).json();
-	}
-
-	private async getTodos() {
-		const entityManager = getManager();
-
-		return entityManager.find(Todo);
-	}
-
-	private async getTodo(id: number) {
-		const entityManager = getManager();
-		return entityManager.findOne(Todo, id);
 	}
 }

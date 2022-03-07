@@ -51,10 +51,14 @@ export class TodoRepositoryAdapter implements TodoRepository {
 			throw new Error("Todo not found");
 		}
 
-		callback(TodoMapper.toDomain(dbTodo));
+		const todoNewData = callback(TodoMapper.toDomain(dbTodo));
 
-		const updatedTodo = await this.repository.save(dbTodo);
+		const updatedTodo = await this.repository.save(todoNewData);
 
 		return TodoMapper.toDomain(updatedTodo);
+	}
+
+	async deleteTodo(todoId: number): Promise<void> {
+		await this.repository.delete(todoId);
 	}
 }

@@ -6,8 +6,8 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-import { Category } from "@/main/entities/categories";
-import { Comment } from "@/main/entities/comments";
+import { Category } from "@/data/categories";
+import { Comment } from "@/data/comments";
 
 @Entity("todos")
 export class Todo {

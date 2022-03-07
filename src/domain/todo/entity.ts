@@ -1,3 +1,5 @@
+const MIN_DESCRIPTION_LENGTH = 1;
+
 export class TodoEntity {
 	constructor(
 		public todoId: number,
@@ -21,10 +23,9 @@ export class TodoEntity {
 			throw new Error("Todo description is required.");
 		}
 
-		if (this.description.length < 15) {
+		if (this.description.length < MIN_DESCRIPTION_LENGTH) {
 			throw new Error(
-				"Todo description must be at least 15 character long. Current length: " +
-					this.description.length
+				`Todo description must be at least ${MIN_DESCRIPTION_LENGTH} character long.`
 			);
 		}
 
