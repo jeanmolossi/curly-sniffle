@@ -1,3 +1,5 @@
+import { CategoryEntity } from "@/domain/categories/entity";
+
 const MIN_DESCRIPTION_LENGTH = 1;
 
 export class TodoEntity {
@@ -8,7 +10,7 @@ export class TodoEntity {
 		public author: string,
 		public boardIndex: number,
 		public boardRef: string,
-		public categories: [] = [],
+		public categories: CategoryEntity[] = [],
 		public comments: [] = []
 	) {
 		this.validate();

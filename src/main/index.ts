@@ -10,8 +10,9 @@ import { createConnection } from "typeorm";
 import { CategoriesController } from "./controllers/categories";
 import { CommentsController } from "./controllers/comments";
 import { todoControllerFactory } from "./factories/controllers/todo";
-import { MapControllers } from "./decorators/controller";
+import { registerControllers } from "./decorators/controller";
 import { TodoController } from "./controllers/todo";
+import { categoriesControllerFactory } from "./factories/controllers/categories";
 
 export const app = express();
 
@@ -25,9 +26,9 @@ async function run() {
 		return res.json({ message: "Hello World" });
 	});
 
-	const todo = todoControllerFactory();
+	const todoController = todoControllerFactory();
+	const categoryController = categoriesControllerFactory();
 
-	const category = new CategoriesController();
 	const comment = new CommentsController();
 
 	const router = express.Router();
@@ -35,22 +36,11 @@ async function run() {
 	const todoRouter = express.Router();
 	const categoryRouter = express.Router();
 
-	// todoRouter.get("/:id", todo.get.bind(todo));
-	// todoRouter.get("/", todo.show.bind(todo));
-	// todoRouter.post("/", todo.post.bind(todo));
-	// todoRouter.put("/:id", todo.put.bind(todo));
-	// todoRouter.delete("/:id", todo.delete.bind(todo));
 	// todoRouter.post("/:id/comment", comment.post.bind(comment));
 	// todoRouter.delete("/:id/comment/:commentId", comment.delete.bind(comment));
 
-	categoryRouter.get("/", category.get.bind(category));
-	categoryRouter.get("/:id", category.get.bind(category));
-	categoryRouter.post("/", category.post.bind(category));
-	categoryRouter.put("/:id", category.put.bind(category));
-	categoryRouter.delete("/:id", category.delete.bind(category));
-
-	router.use(MapControllers(todoRouter, todo));
-	router.use("/categories", categoryRouter);
+	router.use(registerControllers(todoRouter, todoController));
+	router.use(registerControllers(categoryRouter, categoryController));
 
 	app.use("/api", router);
 

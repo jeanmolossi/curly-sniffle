@@ -1,4 +1,5 @@
 import { TodoEntity } from "@/domain";
+import { CategoryMapper } from "../categories/categories.mapper";
 import { Todo } from "./todo.entity";
 
 export class TodoMapper {
@@ -9,16 +10,15 @@ export class TodoMapper {
 			todo.description,
 			todo.author,
 			todo.boardIndex,
-			todo.boardRef
-			// TODO: Mapper de categories
-			// todo.categories,
+			todo.boardRef,
+			CategoryMapper.arrayToDomain(todo.categories)
 			// TODO: Mapper de comments
 			// todo.comments
 		);
 	}
 
 	static arrayToDomain(todos: Todo[]): TodoEntity[] {
-		return todos.map((todo) => TodoMapper.toDomain(todo));
+		return todos?.map(TodoMapper.toDomain);
 	}
 
 	static toPersistence(todo: TodoEntity): Todo {
@@ -26,6 +26,6 @@ export class TodoMapper {
 	}
 
 	static arrayToPersistence(todos: TodoEntity[]): Todo[] {
-		return todos.map((todo) => TodoMapper.toPersistence(todo));
+		return todos?.map(TodoMapper.toPersistence);
 	}
 }

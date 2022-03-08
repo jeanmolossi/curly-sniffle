@@ -2,20 +2,20 @@ GET http://localhost:3001/api/categories
 Accept: application/json
 
 ###
-GET http://localhost:3000/api/categories/1
+GET http://localhost:3001/api/categories/1
 Accept: application/json
 
 ###
-POST http://localhost:3000/api/categories
+POST http://localhost:3001/api/categories
 Content-Type: application/json
 
 {
-	"label": "This is a comment",
+	"label": "This is a comment 1",
 	"type": "neutral"
 }
 
 ###
-PUT http://localhost:3000/api/categories/1
+PUT http://localhost:3001/api/categories/3
 Content-Type: application/json
 
 {
@@ -24,5 +24,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/categories/3
+DELETE http://localhost:3001/api/categories/2
 Accept: application/json

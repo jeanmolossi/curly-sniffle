@@ -35,7 +35,7 @@ export const Put = createMethodDecorator("PUT");
 export const Delete = createMethodDecorator("DELETE");
 export const Patch = createMethodDecorator("PATCH");
 
-export function MapControllers(router: Router, ...controllers: object[]) {
+export function registerControllers(router: Router, ...controllers: object[]) {
 	controllers.forEach((controller) => {
 		const proto = Object.getPrototypeOf(controller);
 
@@ -61,6 +61,9 @@ export function MapControllers(router: Router, ...controllers: object[]) {
 						router.post(finalRoute, call.bind(controller));
 						break;
 					case "PUT":
+						router.put(finalRoute, call.bind(controller));
+						break;
+					case "PATCH":
 						router.put(finalRoute, call.bind(controller));
 						break;
 					case "DELETE":

@@ -43,7 +43,7 @@ export class TodoRepositoryAdapter implements TodoRepository {
 
 	async updateTodo(
 		todoId: number,
-		callback: UpdateCallback
+		callback: UpdateCallback<TodoEntity>
 	): Promise<TodoEntity> {
 		const dbTodo = await this.repository.findOne(todoId);
 

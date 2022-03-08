@@ -1,24 +1,44 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { Category } from "@/data/categories";
+import { Controller, Delete, Get, Post, Put } from "../decorators/controller";
+import {
+	CreateCategory,
+	DeleteCategory,
+	GetCategories,
+	GetCategoryById,
+	UpdateCategory,
+} from "@/domain";
 
+@Controller("/categories")
 export class CategoriesController {
+	constructor(
+		private readonly getCategoryByIdService: GetCategoryById,
+		private readonly getCategoriesService: GetCategories,
+		private readonly createCategoryService: CreateCategory,
+		private readonly updateCategoryService: UpdateCategory,
+		private readonly deleteCategoryService: DeleteCategory
+	) {}
+
+	@Get("/:id")
 	async get(request: Request, response: Response): Promise<Response> {
 		const { params } = request;
 
-		const categoryRepository = getRepository(Category);
-
-		if (params?.id) {
-			const category = await categoryRepository.findOne(params.id);
-
-			return response.json(category);
+		if (!params?.id) {
+			throw new Error("id is required");
 		}
 
-		const categories = await categoryRepository.find();
+		const categories = await this.getCategoryByIdService.run(+params.id);
 
 		return response.json(categories);
 	}
 
+	@Get()
+	async show(_: Request, response: Response): Promise<Response> {
+		const categories = await this.getCategoriesService.run();
+
+		return response.json(categories);
+	}
+
+	@Post()
 	async post(request: Request, response: Response): Promise<Response> {
 		const { body } = request;
 
@@ -28,18 +48,15 @@ export class CategoriesController {
 			});
 		}
 
-		const categoryRepository = getRepository(Category);
+		body.categoryType = body.type;
+		delete body.type;
 
-		const category = categoryRepository.create({
-			categoryType: body.type,
-			label: body.label,
-		});
-
-		const newCategory = await categoryRepository.save(category);
+		const newCategory = await this.createCategoryService.run(body);
 
 		return response.json(newCategory);
 	}
 
+	@Put("/:id")
 	async put(request: Request, response: Response): Promise<Response> {
 		const { body, params } = request;
 
@@ -55,24 +72,18 @@ export class CategoriesController {
 			});
 		}
 
-		const categoryRepository = getRepository(Category);
+		body.categoryType = body.type;
+		delete body.type;
 
-		const category = await categoryRepository.findOne(params.id);
-
-		if (!category) {
-			return response.status(404).json({
-				message: "category not found",
-			});
-		}
-
-		category.label = body.label;
-		category.categoryType = body.type;
-
-		const updatedCategory = await categoryRepository.save(category);
+		const updatedCategory = await this.updateCategoryService.run(
+			+params.id,
+			body
+		);
 
 		return response.json(updatedCategory);
 	}
 
+	@Delete("/:id")
 	async delete(request: Request, response: Response): Promise<Response> {
 		const { params } = request;
 
@@ -82,17 +93,7 @@ export class CategoriesController {
 			});
 		}
 
-		const categoryRepository = getRepository(Category);
-
-		const category = await categoryRepository.findOne(params.id);
-
-		if (!category) {
-			return response.status(404).json({
-				message: "category not found",
-			});
-		}
-
-		await categoryRepository.delete(params.id);
+		await this.deleteCategoryService.run(+params.id);
 
 		return response.status(204).json();
 	}
