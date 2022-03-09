@@ -7,6 +7,7 @@ export default {
 	password: "todo",
 	database: "todos",
 	synchronize: true,
+	// logging: true,
 	entities: ["src/main/entities/**/*.ts", "src/data/**/*.entity.ts"],
 	migrations: ["./database/migrations/**/*.ts"],
 	cli: {
