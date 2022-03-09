@@ -1,5 +1,6 @@
 import { TodoEntity } from "@/domain";
 import { CategoryMapper } from "../categories/categories.mapper";
+import { CommentsMapper } from "../comments/comments.mapper";
 import { Todo } from "./todo.entity";
 
 export class TodoMapper {
@@ -11,9 +12,8 @@ export class TodoMapper {
 			todo.author,
 			todo.boardIndex,
 			todo.boardRef,
-			CategoryMapper.arrayToDomain(todo.categories)
-			// TODO: Mapper de comments
-			// todo.comments
+			CategoryMapper.arrayToDomain(todo.categories),
+			CommentsMapper.toDomainArray(todo.comments)
 		);
 	}
 

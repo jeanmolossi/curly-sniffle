@@ -1,8 +1,15 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { Comment } from "@/data/comments";
+import { CreateComment, DeleteComment } from "@/domain";
+import { Controller, Delete, Post } from "../decorators/controller";
 
+@Controller("/todo")
 export class CommentsController {
+	constructor(
+		private readonly createComment: CreateComment,
+		private readonly deleteComment: DeleteComment
+	) {}
+
+	@Post("/:id/comment")
 	async post(request: Request, response: Response): Promise<Response> {
 		const { params, body } = request;
 
@@ -12,18 +19,15 @@ export class CommentsController {
 			});
 		}
 
-		const commentRepository = getRepository(Comment);
+		body.todoId = +params.id;
+		delete body.id;
 
-		const comment = commentRepository.create({
-			...body,
-			todoId: params.id,
-		});
-
-		const newComment = await commentRepository.save(comment);
+		const newComment = await this.createComment.run(body);
 
 		return response.json(newComment);
 	}
 
+	@Delete("/:id/comment/:commentId")
 	async delete(request: Request, response: Response): Promise<Response> {
 		const { params } = request;
 
@@ -33,16 +37,7 @@ export class CommentsController {
 			});
 		}
 
-		const commentRepository = getRepository(Comment);
-		const comment = await commentRepository.findOne(+params.id);
-
-		if (!comment) {
-			return response.status(404).json({
-				error: "Comment not found",
-			});
-		}
-
-		await commentRepository.remove(comment);
+		await this.deleteComment.run(+params.commentId);
 
 		return response.status(204).json();
 	}

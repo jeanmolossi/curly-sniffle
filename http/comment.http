@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/todo/2/comment
+POST http://localhost:3001/api/todo/1/comment
 Content-Type: application/json
 
 {
@@ -8,5 +8,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/todo/2/comment/1
+DELETE http://localhost:3001/api/todo/1/comment/1
 Accept: application/json

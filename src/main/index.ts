@@ -13,6 +13,7 @@ import { todoControllerFactory } from "./factories/controllers/todo";
 import { registerControllers } from "./decorators/controller";
 import { TodoController } from "./controllers/todo";
 import { categoriesControllerFactory } from "./factories/controllers/categories";
+import { commentsControllerFactory } from "./factories/controllers/comments";
 
 export const app = express();
 
@@ -28,18 +29,16 @@ async function run() {
 
 	const todoController = todoControllerFactory();
 	const categoryController = categoriesControllerFactory();
-
-	const comment = new CommentsController();
+	const commentController = commentsControllerFactory();
 
 	const router = express.Router();
 
 	const todoRouter = express.Router();
 	const categoryRouter = express.Router();
 
-	// todoRouter.post("/:id/comment", comment.post.bind(comment));
-	// todoRouter.delete("/:id/comment/:commentId", comment.delete.bind(comment));
-
-	router.use(registerControllers(todoRouter, todoController));
+	router.use(
+		registerControllers(todoRouter, todoController, commentController)
+	);
 	router.use(registerControllers(categoryRouter, categoryController));
 
 	app.use("/api", router);

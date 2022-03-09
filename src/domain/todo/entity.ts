@@ -1,4 +1,5 @@
 import { CategoryEntity } from "@/domain/categories/entity";
+import { CommentEntity } from "@/domain/comments/entity";
 
 const MIN_DESCRIPTION_LENGTH = 1;
 
@@ -11,7 +12,7 @@ export class TodoEntity {
 		public boardIndex: number,
 		public boardRef: string,
 		public categories: CategoryEntity[] = [],
-		public comments: [] = []
+		public comments: CommentEntity[] = []
 	) {
 		this.validate();
 	}
