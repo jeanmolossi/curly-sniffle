@@ -1,7 +1,9 @@
 import log from "debug";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 import { registerControllers } from "@/main/decorators/controller";
+import { HttpError } from "@/data/http-errors/http-error";
 
 export type ControllerGroup = {
 	router?: express.Router;
@@ -30,6 +32,9 @@ export class Application {
 		this.applyMiddlewares();
 
 		this.applyRoutes();
+
+		this.applyErrorHandler();
+
 		this.app.listen(process.env.PORT || 3000, () =>
 			this.logger("Listening on port %d", process.env.PORT || 3000)
 		);
@@ -62,5 +67,30 @@ export class Application {
 		);
 
 		this.app.use("/api", router);
+	}
+
+	private applyErrorHandler() {
+		this.app.use(
+			(
+				err: Error,
+				_: Request,
+				response: Response,
+				next: NextFunction
+			) => {
+				if (err instanceof HttpError) {
+					this.logger("Error: %s", err.message);
+
+					return response.status(err.status).json({
+						message: err.message,
+						status: err.status,
+						metadata: err.metadata,
+					});
+				} else {
+					this.logger("Error instanceof %s", err);
+				}
+
+				return next(err);
+			}
+		);
 	}
 }

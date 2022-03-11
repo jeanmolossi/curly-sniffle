@@ -2,6 +2,7 @@ import { CategoryEntity, CategoryRepository, UpdateCallback } from "@/domain";
 import { getRepository, Repository } from "typeorm";
 import { CategoryMapper } from "./categories.mapper";
 import { Category } from "./categories.entity";
+import { NotFoundError } from "../common/errors";
 
 export class CategoryRepositoryAdapter implements CategoryRepository {
 	private readonly repository: Repository<Category>;
@@ -19,7 +20,7 @@ export class CategoryRepositoryAdapter implements CategoryRepository {
 		const category = await this.repository.findOne(categoryId);
 
 		if (!category) {
-			throw new Error("Category not found");
+			throw new NotFoundError({ message: "Category not found" });
 		}
 
 		return CategoryMapper.toDomain(category);
@@ -50,7 +51,7 @@ export class CategoryRepositoryAdapter implements CategoryRepository {
 		const category = await this.repository.findOne(categoryId);
 
 		if (!category) {
-			throw new Error("Category not found");
+			throw new NotFoundError({ message: "Category not found" });
 		}
 
 		const updatedCategory = callback(CategoryMapper.toDomain(category));

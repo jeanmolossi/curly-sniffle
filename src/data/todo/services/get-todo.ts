@@ -1,3 +1,4 @@
+import { NotFoundError } from "@/data/common/errors";
 import { GetTodo, TodoEntity, TodoRepository } from "@/domain";
 
 export class GetTodoService implements GetTodo {
@@ -7,7 +8,7 @@ export class GetTodoService implements GetTodo {
 		const todo = await this.repository.getTodo(todoId);
 
 		if (!todo) {
-			throw new Error("Todo not found");
+			throw new NotFoundError({ message: "Todo not found", todoId });
 		}
 
 		return todo;

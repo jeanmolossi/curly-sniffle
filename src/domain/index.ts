@@ -1,4 +1,5 @@
 export * from "./common/update-callback";
+export * from "./common/register-entity-tags";
 
 export * from "./categories/entity";
 export * from "./categories/repository";

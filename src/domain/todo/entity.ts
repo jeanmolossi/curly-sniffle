@@ -1,8 +1,10 @@
+import { EntityLabel, ValidationErrors } from "@/domain/common";
 import { CategoryEntity } from "@/domain/categories/entity";
 import { CommentEntity } from "@/domain/comments/entity";
 
 const MIN_DESCRIPTION_LENGTH = 1;
 
+@EntityLabel("Todo")
 export class TodoEntity {
 	constructor(
 		public todoId: number,
@@ -18,26 +20,33 @@ export class TodoEntity {
 	}
 
 	private validate() {
+		const errors = new ValidationErrors();
+
 		if (!this.title) {
-			throw new Error("Todo title is required.");
+			errors.addError("title", "field is required");
 		}
 
 		if (!this.description) {
-			throw new Error("Todo description is required.");
+			errors.addError("description", "field is required");
 		}
 
 		if (this.description.length < MIN_DESCRIPTION_LENGTH) {
-			throw new Error(
-				`Todo description must be at least ${MIN_DESCRIPTION_LENGTH} character long.`
+			errors.addError(
+				"description",
+				`field must be at least ${MIN_DESCRIPTION_LENGTH} characters`
 			);
 		}
 
 		if (!this.author) {
-			throw new Error("Todo author is required.");
+			errors.addError("author", "field is required");
 		}
 
 		if (!this.boardRef) {
-			throw new Error("Todo board ref is required.");
+			errors.addError("boardRef", "field is required");
+		}
+
+		if (errors.shouldThrownError()) {
+			throw errors;
 		}
 	}
 }

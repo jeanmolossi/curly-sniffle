@@ -1,5 +1,8 @@
-const DEFAULT_USER_PHOTO = "https://randomuser.me/api/portraits/lego/1.jpg";
+import { ValidationErrors } from "../common";
 
+const DEFAULT_USER_PHOTO = "https://randomuser.me/api/portraits/lego/1.jpg";
+const MIN_USERNAME_LENGTH = 3;
+const MIN_COMMENT_LENGTH = 15;
 export class CommentEntity {
 	constructor(
 		public commentId: number,
@@ -13,28 +16,40 @@ export class CommentEntity {
 	}
 
 	private validate() {
+		const errors = new ValidationErrors();
+
 		if (!this.userName) {
-			throw new Error("User name is required.");
+			errors.addError("userName", "field is required");
 		}
 
-		if (this.userName.length < 3) {
-			throw new Error("User name must be at least 3 characters long");
+		if (this.userName.length < MIN_USERNAME_LENGTH) {
+			errors.addError(
+				"userName",
+				`field must be at least ${MIN_USERNAME_LENGTH} characters`
+			);
 		}
 
 		if (!this.comment) {
-			throw new Error("Comment is required.");
+			errors.addError("comment", "field is required");
 		}
 
-		if (this.comment.length < 15) {
-			throw new Error("Comment must be at least 15 characters long");
+		if (this.comment.length < MIN_COMMENT_LENGTH) {
+			errors.addError(
+				"comment",
+				`field must be at least ${MIN_COMMENT_LENGTH} characters`
+			);
 		}
 
 		if (!this.createdAt) {
-			throw new Error("Created at is required.");
+			errors.addError("createdAt", "field is required");
 		}
 
 		if (!this.todoId) {
-			throw new Error("Todo id is required.");
+			errors.addError("todoId", "field is required");
+		}
+
+		if (errors.shouldThrownError()) {
+			throw errors;
 		}
 	}
 }

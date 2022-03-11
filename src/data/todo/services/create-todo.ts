@@ -1,3 +1,4 @@
+import { EntityAlreadyExistsError } from "@/data/common/errors";
 import { CreateTodo, TodoEntity, TodoRepository } from "@/domain";
 
 export class CreateTodoService implements CreateTodo {
@@ -10,7 +11,7 @@ export class CreateTodoService implements CreateTodo {
 		});
 
 		if (hasTodos.length > 0) {
-			throw new Error("Todo already exists");
+			throw new EntityAlreadyExistsError(TodoEntity);
 		}
 
 		return this.todoRepository.createTodo(todo);

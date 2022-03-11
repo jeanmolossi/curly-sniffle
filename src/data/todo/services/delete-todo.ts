@@ -1,3 +1,4 @@
+import { NotFoundError } from "@/data/common/errors";
 import { DeleteTodo, TodoRepository } from "@/domain";
 
 export class DeleteTodoService implements DeleteTodo {
@@ -7,7 +8,7 @@ export class DeleteTodoService implements DeleteTodo {
 		const todoToDelete = await this.repository.getTodo(todoId);
 
 		if (!todoToDelete) {
-			throw new Error(`Todo with id ${todoId} not found`);
+			throw new NotFoundError({ todoId });
 		}
 
 		await this.repository.deleteTodo(todoId);

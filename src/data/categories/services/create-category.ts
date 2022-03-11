@@ -1,3 +1,4 @@
+import { EntityAlreadyExistsError } from "@/data/common/errors";
 import { CategoryEntity, CategoryRepository, CreateCategory } from "@/domain";
 
 export class CreateCategoryService implements CreateCategory {
@@ -9,7 +10,7 @@ export class CreateCategoryService implements CreateCategory {
 		});
 
 		if (hasCategoryLabel.length > 0) {
-			throw new Error("Category already exists");
+			throw new EntityAlreadyExistsError(CategoryEntity);
 		}
 
 		return this.repository.create(category);

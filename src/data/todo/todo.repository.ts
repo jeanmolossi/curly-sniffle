@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import { TodoEntity, TodoRepository, UpdateCallback } from "@/domain";
+import { NotFoundError } from "@/data/common/errors";
 import { Todo } from "./todo.entity";
 import { TodoMapper } from "./todo.mapper";
 
@@ -19,7 +20,7 @@ export class TodoRepositoryAdapter implements TodoRepository {
 		const dbTodo = await this.repository.findOne(todoId);
 
 		if (!dbTodo) {
-			throw new Error("Todo not found");
+			return undefined as any;
 		}
 
 		return TodoMapper.toDomain(dbTodo);
@@ -48,7 +49,7 @@ export class TodoRepositoryAdapter implements TodoRepository {
 		const dbTodo = await this.repository.findOne(todoId);
 
 		if (!dbTodo) {
-			throw new Error("Todo not found");
+			throw new NotFoundError({ message: "Todo not found", todoId });
 		}
 
 		const todoNewData = callback(TodoMapper.toDomain(dbTodo));

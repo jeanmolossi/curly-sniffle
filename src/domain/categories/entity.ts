@@ -1,5 +1,7 @@
+import { EntityLabel, ValidationErrors } from "@/domain/common";
 import { TodoEntity } from "@/domain/todo/entity";
 
+@EntityLabel("Category")
 export class CategoryEntity {
 	constructor(
 		public categoryId: string,
@@ -11,14 +13,20 @@ export class CategoryEntity {
 	}
 
 	private validate() {
+		const errors = new ValidationErrors();
+
 		if (!this.categoryId) {
-			throw new Error("Category id is required");
+			errors.addError("category id", "field is required");
 		}
 		if (!this.label) {
-			throw new Error("Category label is required");
+			errors.addError("category label", "field is required");
 		}
 		if (!this.categoryType) {
-			throw new Error("Category type is required");
+			errors.addError("category type", "field is required");
+		}
+
+		if (errors.shouldThrownError()) {
+			throw errors;
 		}
 	}
 }

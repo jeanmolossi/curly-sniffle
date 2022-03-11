@@ -1,6 +1,7 @@
 import { CommentEntity, CommentRepository, UpdateCallback } from "@/domain";
 import { getRepository, Repository } from "typeorm";
 import { CommentsMapper } from ".";
+import { NotFoundError } from "../common/errors";
 import { Comment } from "./comments.entity";
 
 export class CommentsRepositoryAdapter implements CommentRepository {
@@ -14,7 +15,7 @@ export class CommentsRepositoryAdapter implements CommentRepository {
 		const comment = await this.repository.findOne(commentId);
 
 		if (!comment) {
-			throw new Error("Comment not found");
+			throw new NotFoundError({ message: "Comment not found" });
 		}
 
 		return CommentsMapper.toDomain(comment);
@@ -47,7 +48,7 @@ export class CommentsRepositoryAdapter implements CommentRepository {
 		const comment = await this.getComment(commentId);
 
 		if (!comment) {
-			throw new Error("Comment not found");
+			throw new NotFoundError({ message: "Comment not found" });
 		}
 
 		const updatedComment = callback(comment);

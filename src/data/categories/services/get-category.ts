@@ -1,3 +1,4 @@
+import { NotFoundError } from "@/data/common/errors";
 import { CategoryEntity, CategoryRepository, GetCategoryById } from "@/domain";
 
 export class GetCategoryByIdService implements GetCategoryById {
@@ -7,7 +8,7 @@ export class GetCategoryByIdService implements GetCategoryById {
 		const category = await this.repository.getById(categoryId);
 
 		if (!category) {
-			throw new Error("Category not found");
+			throw new NotFoundError({ message: "Category not found" });
 		}
 
 		return category;
