@@ -22,7 +22,7 @@ export class CommentEntity {
 			errors.addError("userName", "field is required");
 		}
 
-		if (this.userName.length < MIN_USERNAME_LENGTH) {
+		if (this.userName && this.userName.length < MIN_USERNAME_LENGTH) {
 			errors.addError(
 				"userName",
 				`field must be at least ${MIN_USERNAME_LENGTH} characters`
@@ -42,6 +42,13 @@ export class CommentEntity {
 
 		if (!this.createdAt) {
 			errors.addError("createdAt", "field is required");
+		}
+
+		if (
+			this.createdAt &&
+			new Date(this.createdAt).toString() === "Invalid Date"
+		) {
+			errors.addError("createdAt", "field should be a valid date");
 		}
 
 		if (!this.todoId) {

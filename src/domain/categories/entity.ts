@@ -7,7 +7,7 @@ export class CategoryEntity {
 		public categoryId: string,
 		public label: string,
 		public categoryType: string,
-		public todos: TodoEntity[]
+		public todos?: TodoEntity[]
 	) {
 		this.validate();
 	}

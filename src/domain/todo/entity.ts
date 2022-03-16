@@ -2,7 +2,7 @@ import { EntityLabel, ValidationErrors } from "@/domain/common";
 import { CategoryEntity } from "@/domain/categories/entity";
 import { CommentEntity } from "@/domain/comments/entity";
 
-const MIN_DESCRIPTION_LENGTH = 1;
+const MIN_DESCRIPTION_LENGTH = 2;
 
 @EntityLabel("Todo")
 export class TodoEntity {
@@ -30,7 +30,10 @@ export class TodoEntity {
 			errors.addError("description", "field is required");
 		}
 
-		if (this.description.length < MIN_DESCRIPTION_LENGTH) {
+		if (
+			this.description &&
+			this.description.length < MIN_DESCRIPTION_LENGTH
+		) {
 			errors.addError(
 				"description",
 				`field must be at least ${MIN_DESCRIPTION_LENGTH} characters`
