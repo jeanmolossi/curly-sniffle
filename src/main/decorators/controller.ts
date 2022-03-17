@@ -76,30 +76,6 @@ export function registerControllers(router: Router, ...controllers: object[]) {
 				}
 			});
 	});
+
 	return router;
-
-	// classMethods.forEach((methodName) => {
-	// 	const path = Reflect.getMetadata(methodName, constructor);
-	// 	const method = constructor.prototype[methodName];
-
-	// 	console.log(`${path} -> ${methodName}`);
-
-	// 	if (typeof method !== "function") {
-	// 		return;
-	// 	}
-
-	// 	const controllerPath = Reflect.getMetadata("basePath", constructor);
-
-	// 	if (!controllerPath) {
-	// 		return;
-	// 	}
-
-	// 	const fullPath = `/${controllerPath}/${path}`;
-
-	// 	console.log(fullPath);
-
-	// 	// app.get(fullPath, (request, response) => {
-	// 	// 	return method.call(controller, request, response);
-	// 	// });
-	// });
 }
