@@ -19,6 +19,12 @@ export class CommentsController {
 			});
 		}
 
+		if (body.comment.length < 15) {
+			return response.status(400).json({
+				error: "Comment must be at least 15 characters",
+			});
+		}
+
 		body.todoId = +params.id;
 		delete body.id;
 

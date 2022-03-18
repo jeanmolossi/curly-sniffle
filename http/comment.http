@@ -8,5 +8,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3001/api/todo/1/comment/1
+DELETE http://localhost:3001/api/todo/2/comment/5
 Accept: application/json

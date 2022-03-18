@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { CreateTodo, DeleteTodo, GetTodo, GetTodos, MoveTodo } from "@/domain";
 import { Controller, Delete, Get, Post, Put } from "../decorators/controller";
+import { ValidateInputWith } from "../decorators/validate-with";
+import { createTodoInputValidator, todoIdParamValidator } from "../validators";
+import { updateTodoValidator } from "../validators/todo/update-todo-input";
 
 @Controller("/todo")
 export class TodoController {
@@ -13,21 +16,9 @@ export class TodoController {
 	) {}
 
 	@Get("/:id")
+	@ValidateInputWith(todoIdParamValidator)
 	async get(request: Request, response: Response): Promise<Response> {
-		const id = request.params?.id;
-
-		if (!id) {
-			return response.status(400).json({
-				error: "Missing id param",
-			});
-		}
-
-		const todoId: number = +id;
-		if (isNaN(todoId)) {
-			return response.status(400).json({
-				error: "Invalid id param",
-			});
-		}
+		const todoId: number = +request.params?.id;
 
 		const todo = await this.getTodoService.run(todoId);
 		return response.json(todo);
@@ -40,6 +31,7 @@ export class TodoController {
 	}
 
 	@Post("/")
+	@ValidateInputWith(createTodoInputValidator)
 	async post(request: Request, response: Response): Promise<Response> {
 		const { body } = request;
 
@@ -49,14 +41,10 @@ export class TodoController {
 	}
 
 	@Put("/:id")
+	@ValidateInputWith(todoIdParamValidator)
+	@ValidateInputWith(updateTodoValidator)
 	async put(request: Request, response: Response): Promise<Response> {
 		const { body, params } = request;
-
-		if (!params?.id || !body) {
-			return response.status(400).json({
-				error: "Missing id param",
-			});
-		}
 
 		const todo = await this.moveTodoService.run(+params.id, body);
 
@@ -64,14 +52,9 @@ export class TodoController {
 	}
 
 	@Delete("/:id")
+	@ValidateInputWith(todoIdParamValidator)
 	async delete(request: Request, response: Response): Promise<Response> {
 		const { params } = request;
-
-		if (!params?.id) {
-			return response.status(400).json({
-				error: "Missing id param",
-			});
-		}
 
 		await this.deleteTodoService.run(+params.id);
 
