@@ -19,7 +19,9 @@
     "express-async-errors": "^3.1.1",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.44"
+    "typeorm": "^0.2.44",
+	"ts-node": "^10.6.0",
+    "tsconfig-paths": "^3.13.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.0.0",
@@ -33,8 +35,6 @@
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.3",
-    "ts-node": "^10.6.0",
-    "tsconfig-paths": "^3.13.0",
     "tslint": "^6.1.3",
     "typescript": "^4.6.2"
   }
