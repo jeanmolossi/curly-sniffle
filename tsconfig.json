@@ -1,30 +1,31 @@
 {
 	"compilerOptions": {
-		"target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+		"target": "es2016",
 		"lib": [
 			"ES2015",
 			"ES2016",
 			"ESNext"
-			],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-		"experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
-		"emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
-		"module": "commonjs",                                /* Specify what module code is generated. */
-		"baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+			],
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"module": "commonjs",
+		"outDir": "./dist",
+		"baseUrl": "./",
 		"paths": {
 			"@/*": ["./src/*"],
 			"@__tests__/*": ["./tests/*"]
 		},
-		"allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
-		"noEmit": true,                                   /* Disable emitting files from a compilation. */
-		"isolatedModules": false,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
-		"allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
-		"esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
-		"strict": true,                                      /* Enable all strict type-checking options. */
-		"noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied `any` type.. */
-		// "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
-		"strictPropertyInitialization": false,             /* Check for class properties that are declared but not set in the constructor. */
-		"noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
-		"skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+		"allowJs": true,
+		"noEmit": true,
+		"isolatedModules": false,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"noImplicitAny": true,
+		// "strictBindCallApply": true,
+		"strictPropertyInitialization": false,
+		"noImplicitReturns": true,
+		"skipLibCheck": true
 	},
 	"include": [
 		"./ormconfig.ts",
