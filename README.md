@@ -8,17 +8,17 @@ Projeto com fins didáticos.
 
 # :footprints: Primeiros passos
 
-- [Requisitos mínimos](#-requisitos-mínimos)
-- [Iniciar projeto](#iniciar-projeto)
-- [Estrutura](#estrutura)
-- [Considerações](#considerações)
+- [Requisitos mínimos](#warning-requisitos-mínimos)
+- [Iniciar projeto](#runner-iniciar-projeto)
+- [Estrutura](#building_construction-estrutura)
+- [Considerações](#notebook-considerações)
 
 # :warning: Requisitos mínimos
 
 **Você precisa ter instalado [Node](https://github.com/nodesource/distributions/blob/master/README.md), [npm](https://nodejs.org/en/download/), [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable), [Docker (Ubuntu)](https://docs.docker.com/engine/install/ubuntu/) ou [Docker (Windows)](https://docs.docker.com/desktop/windows/install/) e [docker-compose](https://docs.docker.com/compose/install/)**
 
-# Iniciar Projeto
+# :runner: Iniciar Projeto
 
-# Estrutura
+# :building_construction: Estrutura
 
-# Considerações
+# :notebook: Considerações
