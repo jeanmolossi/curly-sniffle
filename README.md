@@ -19,6 +19,35 @@ Projeto com fins didáticos.
 
 # :runner: Iniciar Projeto
 
+Previamente, você precisa instalar as dependências do projeto. Para isso, na raiz do projeto, execute:
+
+```shell
+yarn
+```
+
+Em seguida você precisará subir a instância de bancos de dados que iremos utilizar. A configuração se encontra em [`docker-compose.yml`](./docker-compose.yml). Para isso, execute:
+
+```shell
+docker-compose up
+```
+_<u>Observação</u>: Seu terminal ficará travado. Está tudo bem. Isso significa que o banco de dados está rodando._
+
+**Em outro terminal** execute o comando:
+
+```shell
+yarn start:dev
+```
+
+Este comando fará com que sua aplicação inicie.
+
 # :building_construction: Estrutura
 
+A estrutura final deste projeto ficará da seguinte forma:
+
+![Diagramação do projeto](./docs/estrutura-projeto.png)
+
 # :notebook: Considerações
+
+Acompanhe as versões desse projeto pelas [branches](https://github.com/jeanmolossi/curly-sniffle/branches/active)
+
+Desenvolva junto pela [playlist no Youtube]() (em progresso)
